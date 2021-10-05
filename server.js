@@ -14,26 +14,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Example Get Request
-app.get("/coffees", (req, res, next) => {
+app.get("/coffees", (req, res) => {
     const coffees = db.data.coffees.map((coffee) => {
         return coffee;
     })
     res.json(coffees);
 });
 
+// Can send html files too!
 app.get("/", (req, res) => {
     res.sendFile('index.html', { root: __dirname });
 })
 
-// ToDo: Make a post request to our db
+// Example POST request
 app.post("/newcoffee", (req, res) => {
     const newCoffee = req.body;
     db.data.coffees.push(newCoffee);
     db.write();
     res.sendStatus(200);
 })
-
-// TODO: Make a new get request from the db
 
 app.listen(3000, () => {
  console.log("Server running on port 3000");
