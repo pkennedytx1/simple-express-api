@@ -5,6 +5,10 @@ import { fileURLToPath } from 'url'
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+    console.log(req);
+    next();
+});
 const adapter = new JSONFile('db.json');
 const db = new Low(adapter);
 await db.read();
